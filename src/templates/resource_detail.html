@@ -8,6 +8,7 @@
 {% block content %}	
 	<div class="col-sm-6 col-sm-offset-3">
 		<h1>{{ title }} <small>{{ instance.timestamp }}</small></h1>
+		{{ instance.course_name }}
 		{{ instance.description|linebreaks }} <br/>
 		<a href="{% url "download" id=instance.id %}" class="btn btn-danger" role="button">Download</a><br/>
 	</div>

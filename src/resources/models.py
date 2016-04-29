@@ -8,7 +8,19 @@ class resource(models.Model):
 	description = models.TextField()
 	timestamp = models.DateTimeField(auto_now = False, auto_now_add = True)
 	updated = models.DateTimeField(auto_now = True, auto_now_add = False)
+	course_name = models.ForeignKey(
+		'course', 
+		on_delete=models.CASCADE,
+	)
 	upload = models.FileField(upload_to = '%s/media/' %settings.BASE_DIR)
 
 	def __unicode__(self):
 		return self.title
+
+class course(models.Model):
+	course_name = models.CharField(max_length = 255)
+	course_description = models.TextField()
+	course_id = models.IntegerField()
+
+	def __unicode__(self):
+		return self.course_name

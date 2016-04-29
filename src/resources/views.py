@@ -8,15 +8,45 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 # Create your views here.
-from .models import resource
+from .models import resource, course
 from django.http import HttpResponseRedirect
 from datetime import datetime   
 from django.conf import settings
 
+
+def course_homepage(request):
+	queryset_list = course.objects.all()
+	query = request.GET.get("q")
+	if query:
+		queryset_list = queryset_list.filter(
+			Q(course_name__icontains=query) |
+			Q(course_description__icontains=query)
+
+		).distinct()
+	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
+	page_request_var = 'page'
+	page = request.GET.get(page_request_var)
+	try:
+	    queryset = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    queryset = paginator.page(1)
+	except EmptyPage:
+	    # If page is out of range (e.g. 9999), deliver last page of results.
+	    queryset = paginator.page(paginator.num_pages)
+	context = {
+		"object_list": queryset,
+		"title": "Courses",
+		"page_request_var": page_request_var
+	}
+
+	return render(request, "course_list.html", context)
+
 def resource_create(request):
 	form = resourceForm(request.POST or None,request.FILES or None)
 	if form.is_valid():
-		instance = resource(upload=request.FILES['upload'], title=request.POST.get("title"), description=request.POST.get("description"))
+		instance = form.save(commit=False)
+		instance = resource(upload=request.FILES['upload'], title=request.POST.get("title"), description = request.POST.get("description"), course_name = instance.course_name)
 		instance.save()
 		messages.success(request, "Successfully Created")
 		#return HttpResponseRedirect("http://127.0.0.1:8000/resources/detail/%s" %str(instance.id))
@@ -25,9 +55,6 @@ def resource_create(request):
 		"form": form,
 	}
 	return render(request, "resource_form.html", context)	
-
-#from wand.image import Image
-
 
 def resource_detail(request, id=None):
 	instance = get_object_or_404(resource, id = id)
