@@ -13,7 +13,7 @@ from .views import (
 
 urlpatterns = [
     url(r'^$', course_homepage),
-    url(r'^list$', resource_list, name = 'list'),
+    url(r'^list/(?P<id>\d+)/$', resource_list, name = 'list'),
     url(r'^create/$',resource_create),
     url(r'^detail/(?P<id>\d+)/$', resource_detail, name ='detail'),
     url(r'^edit/(?P<id>\d+)/$', resource_update, name = 'update'),
