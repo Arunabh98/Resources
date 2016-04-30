@@ -8,6 +8,15 @@ class resource(models.Model):
 	description = models.TextField()
 	timestamp = models.DateTimeField(auto_now = False, auto_now_add = True)
 	updated = models.DateTimeField(auto_now = True, auto_now_add = False)
+	RESOURCE_TYPE = (
+	    ('L', 'Lectures'),
+	    ('Q', 'Quizzes'),
+	    ('T', 'Tutorials'),
+	    ('E', 'Endsem'),
+	)
+	resource_type = models.CharField(max_length=30,
+                  choices=RESOURCE_TYPE,
+                  default="L")
 	course_name = models.ForeignKey(
 		'course', 
 		on_delete=models.CASCADE,

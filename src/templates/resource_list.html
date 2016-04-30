@@ -1,10 +1,17 @@
 {% extends "base.html" %}	
 	{% block content %}
-		<h1>{{ title }}</h1>
-		<form method="GET" action="">
-			<input type="text" name="q" placeholder="Search Resources" value="{{ request.GET.q }}"></input>
-			<input type="submit" value="Search"></input>
-		</form>
+	 	<div class=" navbar navbar-default navbar-fixed-top" role="navigation">
+			<h1>{{ title }}</h1>	
+		</div>
+		<div class="container">
+			<form method="GET" action="" style="margin-top: 7em">
+				<input type="text" name="q" placeholder="Search Resources" value="{{ request.GET.q }}"></input>
+				<input type="submit" value="Search"></input>
+			</form>	
+		</div>
+		<div class="jumbotron text-center" style="margin-top: 2em">
+			{{ course.course_description }}
+		</div>
 		<br/>
 		<div class="row">
 			{% for obj in object_list %}

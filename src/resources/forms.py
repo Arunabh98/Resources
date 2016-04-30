@@ -9,6 +9,7 @@ class resourceForm(forms.ModelForm):
 			"title",
 			"description",
 			"course_name",
+			"resource_type",
 			"upload",
 		]
 	upload = forms.FileField(

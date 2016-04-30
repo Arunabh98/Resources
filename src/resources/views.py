@@ -42,6 +42,16 @@ def course_homepage(request):
 
 	return render(request, "course_list.html", context)
 
+def course_detail(request, id=None):
+	instance = get_object_or_404(course, id = id)
+	# Converting first page into JPG
+	#with Image(filename="%s" %str(instance.upload)) as img:
+	#     img.save(filename="%s/media/temp-%s.jpg" % (settings.BASE_DIR, instance.id))
+	context = {
+		"instance": instance,
+	}
+	return render(request, "course_detail.html", context)
+
 def resource_create(request):
 	form = resourceForm(request.POST or None,request.FILES or None)
 	if form.is_valid():
@@ -67,9 +77,9 @@ def resource_detail(request, id=None):
 	}
 	return render(request, "resource_detail.html", context)
 
-def resource_list(request, id=None):
+def resource_list(request, id=None, type=None):
 	instance = get_object_or_404(course, id = id)
-	queryset_list = resource.objects.filter(course_name = instance).order_by("-timestamp")
+	queryset_list = resource.objects.filter(course_name = instance, resource_type = type).order_by("-timestamp")
 	query = request.GET.get("q")
 	if query:
 		queryset_list = queryset_list.filter(

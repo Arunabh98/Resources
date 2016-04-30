@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+	{{ instance.course_name }}|{{ block.super }}
+{% endblock head_title %}
+
+
+{% block content %}
+	<div class=" navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">{{ instance.course_name }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron text-center" style="margin-top: 5em">
+		{{ instance.course_description|linebreaks }} <br/>	
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="margin-top: 2em">
+			<h3><a href='{% url "list" id=instance.id type="L" %}'>Lectures</a></h3>	
+		</div>
+		<div class="col-md-12" style="margin-top: 2em">
+			<h3><a href='{% url "list" id=instance.id type="T" %}'>Tutorials</a></h3>	
+		</div>
+		<div class="col-md-12" style="margin-top: 2em">
+			<h3><a href='{% url "list" id=instance.id type="Q" %}'>Quizzes</a></h3>	
+		</div>
+		<div class="col-md-12" style="margin-top: 2em">
+			<h3><a href='{% url "list" id=instance.id type="E" %}'>Midsem and Endsem</a></h3>	
+		</div>		
+	</div>
+{% endblock content %}
