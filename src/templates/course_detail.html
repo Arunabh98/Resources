@@ -4,30 +4,31 @@
 	{{ instance.course_name }}|{{ block.super }}
 {% endblock head_title %}
 
+{% block bar %}
+	<div class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin: 0; padding: 0">
+		<a class="navbar-brand" rel="home" href='{% url "course_detail" id=instance.id %}' title="{{ instance.course_name }}">{{ instance.course_name }}</a>
+	</div>
+{% endblock bar %}
 
 {% block content %}
-	<div class=" navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">{{ instance.course_name }}</a>
-			</div>
-		</div>
+	<div class="jumbotron text-center" style="margin: 0; padding: 2em">
+			{{ instance.course_description|linebreaks }} <br/>	
 	</div>
-	<div class="jumbotron text-center" style="margin-top: 5em">
-		{{ instance.course_description|linebreaks }} <br/>	
-	</div>
-	<div class="row">
-		<div class="col-md-12" style="margin-top: 2em">
-			<h3><a href='{% url "list" id=instance.id type="L" %}'>Lectures</a></h3>	
-		</div>
-		<div class="col-md-12" style="margin-top: 2em">
-			<h3><a href='{% url "list" id=instance.id type="T" %}'>Tutorials</a></h3>	
-		</div>
-		<div class="col-md-12" style="margin-top: 2em">
-			<h3><a href='{% url "list" id=instance.id type="Q" %}'>Quizzes</a></h3>	
-		</div>
-		<div class="col-md-12" style="margin-top: 2em">
-			<h3><a href='{% url "list" id=instance.id type="E" %}'>Midsem and Endsem</a></h3>	
-		</div>		
+	<div class="container">
+		<h3>Resources</h3>
+		<ul class="nav nav-pills nav-stacked">
+			<li>
+				<a href='{% url "list" id=instance.id type="L" %}'><span class="glyphicon glyphicon-book" style="color: #000000"></span>   Lectures</a>
+			</li>
+			<li>
+				<a href='{% url "list" id=instance.id type="T" %}'><span class="glyphicon glyphicon-book" style="color: #000000"></span>   Tutorials</a>
+			</li>
+			<li>
+				<a href='{% url "list" id=instance.id type="Q" %}'><span class="glyphicon glyphicon-book" style="color: #000000"></span>  Quizzes</a>
+			</li>
+			<li>
+				<a href='{% url "list" id=instance.id type="E" %}'><span class="glyphicon glyphicon-book" style="color: #000000"></span>   MidSem and EndSem</a>
+			</li>
+		</ul>
 	</div>
 {% endblock content %}
