@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="col-sm-12">
-	<h1>Form</h1>
-	<form method='POST' action='' enctype="multipart/form-data">{% csrf_token %}
-		{{ form.as_p }}
-		<input type = 'submit' class = 'btn btn-default' value='Upload' />
+<div class="container">
+	<h2>Fill out the Details</h2>
+	<form method='POST' action='' enctype="multipart/form-data" role="form">{% csrf_token %}
+		<div class="form-group">
+			<label>Title:</label>
+			{{ form.title }}	
+		</div>
+		<div class="form-group">
+			<label>Description:</label>
+			{{ form.description }}	
+		</div>
+		<div class="form-group">
+			<label>Which Category does this resource belong to?</label>
+			{{ form.resource_type }}	
+		</div>
+		<div class="form-group">
+			<label>Which Course does this Resource belong to?</label>
+			{{ form.course_name }}	
+		</div>
+		<div class="form-group">
+			<label>Select Appropriate PDF File:</label>
+			{{ form.upload }}	
+		</div>
+		<input type = 'submit' class = 'btn btn-primary' value='Upload' />
+	</form>
 	</form>
 </div>
 {% endblock content %}
