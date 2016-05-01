@@ -1,0 +1,19 @@
+{% extends "base.html" %}	
+
+{% block bar %}
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<a class="navbar-brand" rel="home" href="/" title="{{ title }}">{{ title }}</a>	
+	
+</div>
+{% endblock bar %}
+
+{% block content %}
+	<div class="container">
+		<div class="jumbotron text-center">
+	      <h1 class="as">Study@IIT Bombay</h1> 
+	      <p class="as">The one and only place to find all the treasures of the wisdom of IIT Bombay. Here you can find many useful resources such as lectures, tutorials, previous year quizzes etc to boost your academic record!</p>
+	      <a href=" http://gymkhana.iitb.ac.in/sso/oauth/authorize/?client_id=1hcKimUQ6FY1mQGIR9lWL7fp9pN1NOGTWttuLJ3F
+		  &response_type=code&scope=basic&state=some_state" class="btn btn-info" role="button">Sign in with LDAP ID</a>
+	    </div>
+	</div>	
+{% endblock content %}

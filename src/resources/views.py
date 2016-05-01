@@ -14,6 +14,13 @@ from datetime import datetime
 from django.conf import settings
 
 
+def ldap_login(request):
+	context = {
+		"title": "Sign In",
+	}
+	return render(request, "ldap_login.html", context)
+
+
 def course_homepage(request):
 	queryset_list = course.objects.all()
 	query = request.GET.get("q")

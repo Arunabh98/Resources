@@ -10,10 +10,12 @@ from .views import (
     download,
     course_homepage,
     course_detail,
+    ldap_login,
 )
 
 urlpatterns = [
-    url(r'^$', course_homepage),
+    url(r'^$', course_homepage, name='homepage'),
+    url(r'^login/$', ldap_login),
     url(r'^course/detail/(?P<id>\d+)/$', course_detail, name ='course_detail'),
     url(r'^list/(?P<id>\d+)/(?P<type>[\w.@+-]+)/$', resource_list, name = 'list'),
     url(r'^create/$',resource_create),
