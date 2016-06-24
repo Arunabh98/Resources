@@ -1,17 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 
-from .views import (
-    resource_list,
-    resource_create,
-    resource_detail,
-    resource_update,
-    resource_delete,
-    download,
-    course_homepage,
-    course_detail,
-    ldap_login,
-)
+from .views import *
 
 urlpatterns = [
     url(r'^$', course_homepage, name='homepage'),
