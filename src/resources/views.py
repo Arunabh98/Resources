@@ -68,6 +68,7 @@ def resource_create(request):
 		messages.success(request, "Successfully Created")
 		#return HttpResponseRedirect("http://127.0.0.1:8000/resources/detail/%s" %str(instance.id))
 		return HttpResponseRedirect(reverse('detail', kwargs={'id': instance.id}))
+	
 	context = {
 		"form": form,
 	}
@@ -122,6 +123,7 @@ def resource_update(request, id = None):
 		instance.save()
 		messages.success(request, "Saved")
 		return HttpResponseRedirect(reverse('detail', kwargs={'id': instance.id}))
+	
 	context = {
 		"title": instance.title,
 		"instance": instance,
