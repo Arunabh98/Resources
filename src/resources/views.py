@@ -12,6 +12,7 @@ from .models import resource, course
 from django.http import HttpResponseRedirect
 from datetime import datetime   
 from django.conf import settings
+import re,os
 
 
 def ldap_login(request):
@@ -140,10 +141,18 @@ def resource_delete(request, id = None):
 def download(request, id = None):
 	# Create the HttpResponse object with the appropriate PDF headers.
     instance = get_object_or_404(resource, id = id)
-    fd = open(str(instance.upload))
-    response = HttpResponse(fd, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="%s"'%((instance.title) + ".pdf")
-
+    location = str(instance.upload)
+    regex = re.compile('/media/(.*)')
+    filename = regex.findall(location)
+    if len(filename)!=1:
+    	return HttpResponse("Some error occured!")
+    else:
+		filename = filename[0]
+		filename = os.path.join(settings.MEDIA_ROOT,filename)
+		fd = open(filename)
+		response = HttpResponse(fd, content_type='application/pdf')
+		response['Content-Disposition'] = 'attachment; filename="%s"'%((instance.title) + ".pdf")
+		return response
     # Create the PDF object, using the response object as its "file."
     #p = canvas.Canvas(response)
 
@@ -154,6 +163,6 @@ def download(request, id = None):
     # Close the PDF object cleanly, and we're done.
     #p.showPage()
     #p.save()
-    return response
+    # return response
 
 
